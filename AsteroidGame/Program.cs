@@ -21,6 +21,8 @@ namespace AsteroidGame
             form.Width = 800;
             form.Height = 600;
 
+            Game.Initialize(form);
+
             Application.Run(form);
         }
     }
