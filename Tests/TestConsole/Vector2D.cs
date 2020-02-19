@@ -26,6 +26,8 @@ namespace TestConsole
             //Type obj_type = obj.GetType();
             //if (obj_type != typeof(Vector2D)) return false;
             
+            //base.MemberwiseClone()
+
             if (obj is Vector2D)
             {
                 return ((Vector2D) obj).X == X && ((Vector2D) obj).Y == Y;
