@@ -20,14 +20,14 @@ namespace AsteroidGame
             _Size = Size;
         }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             g.DrawEllipse(Pens.White,
                 _Position.X, _Position.Y,
                 _Size.Width, _Size.Width);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             _Position = new Point(
                 _Position.X + _Direction.X,
