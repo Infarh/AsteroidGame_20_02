@@ -8,6 +8,9 @@ namespace AsteroidGame
 {
     static class Game
     {
+        /// <summary>Таймаут отрисовки одной сцены</summary>
+        private const int __FrameTimeout = 10;
+
         private static BufferedGraphicsContext __Context;
         private static BufferedGraphics __Buffer;
 
@@ -29,7 +32,7 @@ namespace AsteroidGame
             Graphics g = form.CreateGraphics();
             __Buffer = __Context.Allocate(g, new Rectangle(0, 0, Width, Height));
 
-            var timer = new Timer { Interval = 100 };
+            var timer = new Timer { Interval = __FrameTimeout };
             timer.Tick += OnTimerTick;
             timer.Start();
         }
@@ -65,8 +68,14 @@ namespace AsteroidGame
                     new Point(15 - i, 20 - i),
                     new Size(ellipses_size_x, ellipses_size_y)));
 
-
-
+            const int asteroids_count = 10;
+            const int asteroid_size = 25;
+            const int asteroid_max_speed = 20;
+            for (var i = 0; i < asteroids_count; i++)
+                game_objects.Add(new Asteroid(
+                    new Point(rnd.Next(0, Width), rnd.Next(0, Height)),
+                    new Point(-rnd.Next(0, asteroid_max_speed), 0),
+                    asteroid_size));
 
             //var image = Properties.Resources.Asteroid;
             //var image_object = new ImageObject(new Point(4,7), new Point(-4,6), new Size(20, 20), image);

@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="VisualObjects\Asteroid.cs" />
     <Compile Include="VisualObjects\EllipseObject.cs" />
     <Compile Include="VisualObjects\ImageObject.cs" />
     <Compile Include="MainForm.cs">
