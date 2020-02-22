@@ -86,6 +86,7 @@ namespace AsteroidGame
             __Bullet = new Bullet(200);
         }
 
+        /// <summary>Метод визуализации сцены</summary>
         public static void Draw()
         {
             var g = __Buffer.Graphics;
@@ -102,6 +103,7 @@ namespace AsteroidGame
             __Buffer.Render();
         }
 
+        /// <summary>Обновление состояния объектов сцены</summary>
         public static void Update()
         {
             foreach (var visual_object in __GameObjects)
