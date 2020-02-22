@@ -55,6 +55,8 @@
     <Compile Include="SpaceShip.cs" />
     <Compile Include="Vector2D.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Loggers\Loggers.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
