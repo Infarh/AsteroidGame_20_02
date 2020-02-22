@@ -53,6 +53,9 @@ namespace AsteroidGame
                     new Point(600, i * 20),
                     new Point(- i, 0),
                     20);
+
+            //var image = Properties.Resources.Asteroid;
+            //var image_object = new ImageObject(new Point(4,7), new Point(-4,6), new Size(20, 20), image);
         }
 
         public static void Draw()
