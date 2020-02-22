@@ -18,7 +18,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics g)
         {
-            g.DrawImage(_Image, _Position.X, _Position.Y, _Size.Width, _Size.Height);
+            g.DrawImage(_Image, Rect);
         }
     }
 }
