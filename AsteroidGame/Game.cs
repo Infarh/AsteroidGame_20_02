@@ -102,6 +102,7 @@ namespace AsteroidGame
             __Buffer.Render();
         }
 
+        /// <summary>Обновление состояния объектов сцены</summary>
         public static void Update()
         {
             foreach (var visual_object in __GameObjects)
