@@ -39,8 +39,14 @@ namespace AsteroidGame
         }
 
         private static VisualObject[] __GameObjects;
+        private static VisualObject[] __BackObjects;
+
         public static void Load()
         {
+            Random random = new Random();
+            double a;
+            int l;
+
             __GameObjects = new VisualObject[30];
             for (var i = 0; i < __GameObjects.Length / 2; i++)
                 __GameObjects[i] = new VisualObject(
@@ -53,17 +59,30 @@ namespace AsteroidGame
                     new Point(600, i * 20),
                     new Point(- i, 0),
                     20);
+            __BackObjects = new Line[50];
+            for (var i = 0; i < __BackObjects.Length; i++)
+            {
+                a = Math.PI * random.Next(360) / 180.0 ;
+                l = random.Next(300);
+                __BackObjects[i] = new Line(
+               new Point( (int)(400 + l * Math.Sin(a))  , (int)(300+ l * Math.Cos(a)) ),
+               new Point((int)(10.0 * Math.Sin(a)), (int)(10.0 * Math.Cos(a))),
+               new Size(1, 1));
+            }
         }
 
         public static void Draw()
         {
             var g = __Buffer.Graphics;
-            g.Clear(Color.Black);
+                 g.Clear(Color.Black);
 
             //g.DrawRectangle(Pens.White, new Rectangle(50, 50, 200, 200));
             //g.FillEllipse(Brushes.Red, new Rectangle(100, 50, 70, 120));
 
             foreach (var visual_object in __GameObjects)
+                visual_object.Draw(g);
+
+            foreach (var visual_object in __BackObjects)
                 visual_object.Draw(g);
 
             __Buffer.Render();
@@ -73,6 +92,9 @@ namespace AsteroidGame
         {
             foreach (var visual_object in __GameObjects)
                 visual_object.Update();
+            foreach (var visual_object in __BackObjects)
+                visual_object.Update();
         }
+
     }
 }
