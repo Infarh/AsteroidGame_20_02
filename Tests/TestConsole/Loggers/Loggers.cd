@@ -6,6 +6,7 @@
       <HashCode>CgAAAAAAAAAAAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Loggers\Logger.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TestConsole.Loggers.DebugLogger">
     <Position X="2.25" Y="3" Width="3" />
@@ -31,9 +32,10 @@
   <Class Name="TestConsole.Loggers.TraceLogger">
     <Position X="1" Y="5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Loggers\TraceLogger.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TestConsole.Loggers.VisualStudioOutputLogger">
     <Position X="4.25" Y="5" Width="3" />

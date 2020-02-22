@@ -46,6 +46,7 @@
     <Compile Include="Gamer.cs" />
     <Compile Include="Loggers\DebugLogger.cs" />
     <Compile Include="Loggers\FileLogger.cs" />
+    <Compile Include="Loggers\ILogger.cs" />
     <Compile Include="Loggers\ListLogger.cs" />
     <Compile Include="Loggers\Logger.cs" />
     <Compile Include="Loggers\TraceLogger.cs" />
