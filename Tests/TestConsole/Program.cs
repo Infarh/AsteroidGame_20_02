@@ -1,126 +1,133 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestConsole.Loggers;
 
 namespace TestConsole
 {
     static class Program
     {
-        static void Main(string[] args)   // Ctrl+K,D
+        static void Main(string[] args)
         {
-            //Gamer gamer = new Gamer("Игрок 1", new DateTime(1983, 12, 5, 12, 23, 17));
-
-            //Gamer[] gamers = new Gamer[100];
-            //for (var i = 0; i < gamers.Length; i++)
+            //TraceLogger trace_logger = null;
+            //try
             //{
-            //    var g = new Gamer(string.Format("Gamer {0}", i + 1), DateTime.Now.Subtract(TimeSpan.FromDays(365 * (i + 18))));
-            //    //g.Name = $"Gamer {i + 1}";
-            //    gamers[i] = g;
+            //    trace_logger = new TraceLogger();
+            //    trace_logger.Log("123");
+            //}
+            //finally
+            //{
+            //    trace_logger.Dispose();
             //}
 
-            //gamer.SayYourName();
+            using(var trace_logger = new TraceLogger())
+                trace_logger.Log("123");
 
-            //Console.WriteLine();
+            //Logger logger = new ListLogger();
+            //Logger logger = new FileLogger("program.log");
+            //Logger logger = new VisualStudioOutputLogger();
+            Logger logger = new TraceLogger();
+            Trace.Listeners.Add(new TextWriterTraceListener("trace.log"));
 
-            //foreach (var g in gamers)
-            //    g.SayYourName();
+            var critical_logger = new ListLogger();
+            var student_logger = new Student { Name = "Иванов" };
+            var student_clone = (Student) student_logger.Clone();
 
-            //Console.WriteLine();
+            ((ILogger)student_logger).LogError("Error!");
 
-            ////gamer.SetName("2123");
-            ////Console.WriteLine("Имя игрока {0}", gamer.GetName());
+            DoSomeCriticalWork(student_logger);
 
-            //gamer.Name = "123";
+            logger.LogInformation("Start program");
 
-            ////gamer.GetNameLength();
+            for (var i = 0; i < 10; i++)
+                logger.LogInformation($"Do some work {i + 1}");
 
-            //Console.WriteLine("Игрок {0}", gamer.Name);
+            logger.LogWarning("Завершение работы приложения");
 
-            //var spase_ship = new SpaceShip(new Vector2D(5,7));
-            //var spase_ship2 = spase_ship;
-            //spase_ship.Position = new Vector2D(150, -210);
+            //var log_message = ((ListLogger)logger).Messages;
 
+            var random = new Random();
+            var students = new Student[100];
+            for (var i = 0; i < students.Length; i++)
+                students[i] = new Student { Name = $"Student {i + 1}", Height = random.Next(150, 211) };
 
-            //var v1 = new Vector2D(1, 8);
-            //Console.WriteLine(v1);
-            //Console.ReadLine();
-            //var v2 = v1;
-            //v1.X = 7;
-            //v1.Y = -14;
+            Array.Sort(students);
 
-            //var v3 = v1 + v2;
-            //var v4 = v2 - v1;
-
-            //var v5 = v4 + 7;
-            //var v6 = -v5;
-
-            Printer printer = new Printer();
-
-            printer.Print("Hello World!");
-
-            printer = new PrefixPrinter(">>>>>");
-
-            printer.Print("Hello World!");
-
-            printer = new DateTimeLogPrinter();
-            printer.Print("Hello World!");
-
-
+            Trace.Flush();
+            
             Console.ReadLine();
         }
-    }
 
-    class Printer
-    {
-        public Printer()
+        public static void DoSomeCriticalWork(ILogger log)
         {
-
-        }
-
-        public virtual void Print(string str)
-        {
-            Console.WriteLine(str);
+            for (var i = 0; i < 10; i++)
+            {
+                log.LogInformation($"Do some very important work {i + 1}");
+            }
         }
     }
 
-    class PrefixPrinter : Printer
+    public class Student : ILogger, IComparable, ICloneable
     {
-        private string _Prefix;
+        private List<string> _Messages = new List<string>();
 
-        public PrefixPrinter(string Prefix)
+        public double Height { get; set; } = 175;
+
+        public string Name { get; set; }
+
+        public List<int> Ratings { get; set; } = new List<int>();
+
+        public void Log(string Message)
         {
-            _Prefix = Prefix;
+            Ratings.Add(Message.Length);
+            _Messages.Add(Message);
         }
-        //public PrefixPrinter(string Prefix) { _Prefix = Prefix; }
 
-        public override void Print(string str)
+        public void LogInformation(string Message) { Log("Info:" + Message); }
+
+        public void LogWarning(string Message) { Log("Warning:" + Message); }
+
+        //public void LogError(string Message) { Log("Error:" + Message); }
+        void ILogger.LogError(string Message) { Log("Error:" + Message); }
+
+        public int CompareTo(object obj)
         {
-            //Console.WriteLine("{0}{1}", _Prefix, str);
-            base.Print(_Prefix + str);
+            if (obj is Student)
+            {
+                var other_student = (Student)obj;
+                //return StringComparer.OrdinalIgnoreCase.Compare(Name, other_student.Name);
+                if (Height > other_student.Height)
+                    return +1;
+                else if (Height.Equals(other_student.Height))
+                    return 0;
+                else
+                    return -1;
+            }
+            if (obj is null)
+                throw new ArgumentNullException(nameof(obj), "Попытка сравнения студента с пустотой");
+            throw new ArgumentException("Попытка сравнения студента с " + obj.GetType().Name, nameof(obj));
         }
-    }
 
-    class DateTimeLogPrinter : Printer
-    {
-        public override void Print(string str)
+        public override string ToString() => $"{Name} - {Height}";
+
+        public object Clone()
         {
-            Console.Write(DateTime.Now);
-            Console.Write(">>");
-            base.Print(str);
-        }
-    }
+            //var new_student = new Student
+            //{
+            //    _Messages = new List<string>(_Messages),
+            //    Height = Height,
+            //    Name = Name,
+            //    Ratings = new List<int>(Ratings)
+            //};
 
-    class FilePrinter : Printer
-    {
-        private string _FileName;
+            var new_student = (Student)MemberwiseClone();
+            new_student._Messages = new List<string>(_Messages);
+            new_student.Ratings = new List<int>(Ratings);
 
-        public FilePrinter(string FileName) => _FileName = FileName;
-
-        public override void Print(string str)
-        {
-            System.IO.File.AppendAllText(_FileName, str);
+            return new_student;
         }
     }
 }
