@@ -27,6 +27,10 @@ namespace AsteroidGame.VisualObjects
         public abstract void Draw(Graphics g);
 
         public abstract void Update();
-       
+        public void SetX(int x)
+        {
+            _Position.X = x;
+        }
+
     }
 }

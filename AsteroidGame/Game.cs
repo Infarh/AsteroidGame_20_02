@@ -106,6 +106,7 @@ namespace AsteroidGame
         /// <summary>Обновление состояния объектов сцены</summary>
         public static void Update()
         {
+           
             foreach (var visual_object in __GameObjects)
                 visual_object?.Update();
 
@@ -122,8 +123,9 @@ namespace AsteroidGame
                     if (__Bullet.CheckCollision(collision_object))
                     {
                         __Bullet = new Bullet(new Random().Next(Width));
-                        __GameObjects[i] = null;
-                        MessageBox.Show("Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        // __GameObjects[i] = null;
+                       __GameObjects[i].SetX(Width) ;
+            MessageBox.Show("Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
             }
