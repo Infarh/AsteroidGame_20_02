@@ -43,8 +43,8 @@ namespace TestConsole
 
             //var result = student.CompareTo(dekanat);
 
-            foreach (var std in dekanat2)
-                Console.WriteLine(std);
+            //foreach (var std in dekanat2)
+            //    Console.WriteLine(std);
 
             var average_rating = dekanat2.Average(s => s.AverageRating);
             var sum_average_rating = dekanat2.Sum(s => s.AverageRating);
@@ -53,7 +53,75 @@ namespace TestConsole
 
             var random_rating = rnd.NextValue(2, 3, 4, 5);
 
+            //StudentProcessor processor = new StudentProcessor(GetIndexedStudentName);
+            //StudentProcessor processor = GetIndexedStudentName;
+
+            //var index = 0;
+            //foreach (var s in dekanat2)
+            //    Console.WriteLine(processor(s, index++));
+
+            //Console.ReadLine();
+            //processor = GetAverageStudentRating;
+
+            //index = 0;
+            //foreach (var s in dekanat2)
+            //    Console.WriteLine(processor(s, index++));
+
+            //Console.ReadLine();
+            //ProcessStudents(dekanat2, GetIndexedStudentName);
+
+            //Console.ReadLine();
+            //ProcessStudents(dekanat2, GetAverageStudentRating);
+
+            //Console.ReadLine();
+            //Console.Clear();
+            //ProcessStudentsStandard(dekanat2, PrintStudent);
+
+            //var metrics = GetStudentsMetrics(dekanat2, std => std.Name.Length + (int) (student.AverageRating * 10));
+
             Console.ReadLine();
         }
+
+        private static void PrintStudent(Student student)
+        {
+            Console.WriteLine("Студент: {0}", student.Name);
+        }
+
+        public static void ProcessStudentsStandard(IEnumerable<Student> Students, Action<Student> action)
+        {
+            foreach (var s in Students)
+            {
+                action(s);
+            }
+        }
+
+        public static int[] GetStudentsMetrics(IEnumerable<Student> Students, Func<Student, int> GetMetric)
+        {
+            var result = new List<int>();
+            foreach (var student in Students)
+                result.Add(GetMetric(student));
+            return result.ToArray();
+        }
+
+        public static void ProcessStudents(IEnumerable<Student> Students, StudentProcessor Processor)
+        {
+            var index = 0;
+            foreach (var s in Students)
+                Console.WriteLine(Processor(s, index++));
+        }
+
+        private static string GetIndexedStudentName(Student student, int Index)
+        {
+            return $"{student.Name}[{Index}]";
+        }
+
+        public static string GetAverageStudentRating(Student student, int Index)
+        {
+            return $"[{Index}]:{student.Name} - {student.AverageRating}";
+        }
     }
+
+    internal delegate string StudentProcessor(Student Student, int Index);
+
+    internal delegate void Action<T1, T2, T3, T4, T5, T6, T7, T8>(T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7, T8 p8);
 }
