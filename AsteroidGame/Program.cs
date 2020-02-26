@@ -18,16 +18,18 @@ namespace AsteroidGame
             Application.SetCompatibleTextRenderingDefault(false);
 
             var form = new Form();
-            form.Width = 800;
-            form.Height = 600;
-
-            form.Show();
+            form.Width = 1200;
+            form.Height = 900;
+           
+            //Зачем нужен?
+            form.Show();  
 
             Game.Initialize(form);
             Game.Load();
             Game.Draw();
 
             Application.Run(form);
+            
         }
 
         
