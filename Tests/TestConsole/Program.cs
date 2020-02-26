@@ -26,11 +26,17 @@ namespace TestConsole
             Console.WriteLine("Студент {0} отчислен", Student.Name);
         }
 
+        private static void GoToVoenkomat(Student Student)
+        {
+            Console.WriteLine("Студент {0} отправлен служить", Student.Name);
+        }
+
         static void Main(string[] args)
         {
             var dekanat = new Dekanat();
             dekanat.SubscribeToAdd(OnStudentAdd);
             dekanat.SubscribeToRemove(OnStudentRemoved);
+            dekanat.SubscribeToRemove(GoToVoenkomat);
 
             var rnd = new Random();
             for(var i = 0; i < 100; i++)

@@ -60,12 +60,12 @@ namespace TestConsole
 
         public void SubscribeToAdd(Action<TItem> Observer)
         {
-            _AddObservers = Observer;
+            _AddObservers += Observer;
         }
 
         public void SubscribeToRemove(Action<TItem> Observer)
         {
-            _RemoveObservers = Observer;
+            _RemoveObservers += Observer;
         }
     }
 
