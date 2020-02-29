@@ -12,7 +12,7 @@ namespace AsteroidGame.VisualObjects
     {
         public event EventHandler ShipDestroyed;
 
-        private int _Energy = 20;
+        private int _Energy = 100;
 
         public int Energy => _Energy;
 

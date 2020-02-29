@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using AsteroidGame.VisualObjects;
 using AsteroidGame.VisualObjects.Interfaces;
@@ -42,7 +43,8 @@ namespace AsteroidGame
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
-                    __Bullet = new Bullet(__Ship.Position.Y);
+                    //__Bullet = new Bullet(__Ship.Position.Y);
+                    __Bullets.Add(new Bullet(__Ship.Position.Y));
                     break;
 
                 case Keys.Up:
@@ -63,7 +65,8 @@ namespace AsteroidGame
 
         private static SpaceShip __Ship;
         private static VisualObject[] __GameObjects;
-        private static Bullet __Bullet;
+        //private static Bullet __Bullet;
+        private static List<Bullet> __Bullets = new List<Bullet>();
         public static void Load()
         {
             var game_objects = new List<VisualObject>();
@@ -88,7 +91,7 @@ namespace AsteroidGame
                     asteroid_size));
 
             __GameObjects = game_objects.ToArray();
-            __Bullet = new Bullet(200);
+            //__Bullet = new Bullet(200);
             __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
             __Ship.ShipDestroyed += OnShipDestroyed;
         }
@@ -97,21 +100,22 @@ namespace AsteroidGame
         {
             __Timer.Stop();
             __Buffer.Graphics.Clear(Color.DarkBlue);
-            __Buffer.Graphics.DrawString("Game over!!!", new Font(FontFamily.GenericSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100 );
+            __Buffer.Graphics.DrawString("Game over!!!", new Font(FontFamily.GenericSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
             __Buffer.Render();
         }
 
         /// <summary>Метод визуализации сцены</summary>
         public static void Draw()
         {
-            if(__Ship.Energy <= 0) return;
+            if (__Ship.Energy <= 0) return;
             var g = __Buffer.Graphics;
             g.Clear(Color.Black);
 
             foreach (var visual_object in __GameObjects)
                 visual_object?.Draw(g);
 
-            __Bullet?.Draw(g);
+            //__Bullet?.Draw(g);
+            foreach (var bullet in __Bullets) bullet.Draw(g);
             __Ship.Draw(g);
 
             g.DrawString($"Energy: {__Ship.Energy}", new Font(FontFamily.GenericSansSerif, 14, FontStyle.Italic), Brushes.White, 10, 10);
@@ -125,7 +129,14 @@ namespace AsteroidGame
             foreach (var visual_object in __GameObjects)
                 visual_object?.Update();
 
-            __Bullet?.Update();
+            var bullets_to_remove = new List<Bullet>();
+            foreach (var bullet in __Bullets)
+            {
+                bullet.Update();
+                if (bullet.Position.X > Width)
+                    bullets_to_remove.Add(bullet);
+            }
+            //__Bullet?.Update();
 
             for (var i = 0; i < __GameObjects.Length; i++)
             {
@@ -134,16 +145,26 @@ namespace AsteroidGame
                 {
                     var collision_object = (ICollision)obj;
                     __Ship.CheckCollision(collision_object);
-                    if (__Bullet != null && __Bullet.CheckCollision(collision_object))
-                    {
-                        __Bullet = null;
-                        //__Bullet = new Bullet(new Random().Next(Width));
-                        __GameObjects[i] = null;
-                        MessageBox.Show("Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
+                    foreach (var bullet in __Bullets.ToArray())
+                        if (bullet.CheckCollision(collision_object))
+                        {
+                            bullets_to_remove.Add(bullet);
+                            __GameObjects[i] = null;
+                            MessageBox.Show("Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
+                    //if (__Bullets.Any(b => b.CheckCollision(collision_object)))
+                    //{
+                    //    __GameObjects[i] = null;
+                    //    MessageBox.Show("Астероид уничтожен!", "Столкновение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //}
+                    //foreach (var bullet in __Bullets.Where(b => b.CheckCollision(collision_object)))
+                    //    __Bullets.Remove(bullet);
                 }
             }
 
+            foreach (var bullet in bullets_to_remove)
+                __Bullets.Remove(bullet);
         }
     }
 }

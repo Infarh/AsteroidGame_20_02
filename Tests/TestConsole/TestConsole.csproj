@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataDirectoryProcessor.cs" />
+    <Compile Include="Dekanat.cs" />
+    <Compile Include="Extensions\FileInfoExtensions.cs" />
     <Compile Include="Extensions\RandomExtensions.cs" />
     <Compile Include="Gamer.cs" />
     <Compile Include="ICloneable.cs" />
@@ -58,11 +61,60 @@
     <Compile Include="SpaceShip.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="StudentsGroup.cs" />
+    <Compile Include="StudentsTests.cs" />
     <Compile Include="Vector2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Loggers\Loggers.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TestData\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\data — копия %282%29.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\data — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data — копия %282%29 — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data — копия %282%29.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data — копия %283%29.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data — копия — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir1\Dir2\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Names.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir2\data.txt" />
+    <Content Include="TestData\Dir2\dir1\data — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir2\dir1\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir2\Dir2\data — копия.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestData\Dir2\Dir2\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
