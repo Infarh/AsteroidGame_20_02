@@ -77,7 +77,32 @@ namespace TestConsole
             //var total_lines = DataDirectoryProcessor.GetTotalLinesCountQueue(data_dir_name);
             //Console.WriteLine("Число строк = {0}", total_lines);
 
+            var test_strings = new string[] { "Hello World!", "123", "123QWE---" };
+
             
+            Dictionary<string, int> str_int_dict = new Dictionary<string, int>();
+
+            str_int_dict.Add("ASD", 1024);
+            for(var i = 0; i < test_strings.Length; i++)
+                str_int_dict.Add(test_strings[i], test_strings[i].Length);
+
+            foreach (KeyValuePair<string, int> value in str_int_dict) 
+                Console.WriteLine("{0} - {1}", value.Key, value.Value);
+
+            var str_123_len = str_int_dict["123"];
+
+            str_int_dict.Remove("123");
+
+            //var str_123_len2 = str_int_dict["123"];
+
+            int str_123_len3;
+            if(str_int_dict.TryGetValue("123", out str_123_len3))
+                Console.WriteLine(str_123_len3);
+
+            str_int_dict["123"] = 7;
+            str_int_dict["123"] = 123;
+
+            StudentsTests.Run();
 
             Console.ReadLine();
         }

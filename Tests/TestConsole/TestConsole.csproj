@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DataDirectoryProcessor.cs" />
     <Compile Include="Dekanat.cs" />
+    <Compile Include="Extensions\FileInfoExtensions.cs" />
     <Compile Include="Extensions\RandomExtensions.cs" />
     <Compile Include="Gamer.cs" />
     <Compile Include="ICloneable.cs" />
@@ -60,6 +61,8 @@
     <Compile Include="SpaceShip.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="StudentsGroup.cs" />
+    <Compile Include="StudentsTests.cs" />
     <Compile Include="Vector2D.cs" />
   </ItemGroup>
   <ItemGroup>

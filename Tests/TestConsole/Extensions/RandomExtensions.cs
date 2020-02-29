@@ -18,5 +18,10 @@ namespace TestConsole.Extensions
         {
             return Variants[rnd.Next(0, Variants.Length)];
         }
+
+        //public static IEnumerable<T> NextValues<T>(this Random rnd, int Count)
+        //{
+
+        //}
     }
 }

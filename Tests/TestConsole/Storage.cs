@@ -20,6 +20,7 @@ namespace TestConsole
         {
             if (_Items.Contains(Item)) return;
             _Items.Add(Item);
+
             //_AddObservers?.Invoke(Item);
             var add_observers = _AddObservers;
             if (add_observers != null)
