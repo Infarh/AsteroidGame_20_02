@@ -17,6 +17,8 @@ namespace AsteroidGame
         private static BufferedGraphics __Buffer;
         private static Timer __Timer;
 
+        public static event Action<string> Log;
+
         public static int Width { get; set; }
 
         public static int Height { get; set; }
@@ -36,25 +38,35 @@ namespace AsteroidGame
             __Timer = timer;
 
             form.KeyDown += OnFormKeyDown;
+
+            Log?.Invoke("Выполнена инициализация");
         }
 
+        private static int __CtrlKeyPressed;
+        private static int __UpKeyPressed;
+        private static int __DownKeyPressed;
         private static void OnFormKeyDown(object Sender, KeyEventArgs E)
         {
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
                     //__Bullet = new Bullet(__Ship.Position.Y);
-                    __Bullets.Add(new Bullet(__Ship.Position.Y));
+                    //__Bullets.Add(new Bullet(__Ship.Position.Y));
+                    __CtrlKeyPressed++;
                     break;
 
                 case Keys.Up:
-                    __Ship.MoveUp();
+                    //__Ship.MoveUp();
+                    __UpKeyPressed++;
                     break;
 
                 case Keys.Down:
-                    __Ship.MoveDown();
+                    //__Ship.MoveDown();
+                    __DownKeyPressed++;
                     break;
             }
+
+            Log?.Invoke($"Нажата кнопка {E.KeyCode}");
         }
 
         private static void OnTimerTick(object sender, EventArgs e)
@@ -66,9 +78,11 @@ namespace AsteroidGame
         private static SpaceShip __Ship;
         private static VisualObject[] __GameObjects;
         //private static Bullet __Bullet;
-        private static List<Bullet> __Bullets = new List<Bullet>();
+        private static readonly List<Bullet> __Bullets = new List<Bullet>();
         public static void Load()
         {
+            Log?.Invoke("Загрузка данных сцены...");
+
             var game_objects = new List<VisualObject>();
             var rnd = new Random();
 
@@ -80,6 +94,7 @@ namespace AsteroidGame
                     new Point(rnd.Next(0, Width), rnd.Next(0, Height)),
                     new Point(-rnd.Next(0, star_max_speed), 0),
                     star_size));
+            Log?.Invoke($"Создано звёзд {stars_count}");
 
             const int asteroids_count = 10;
             const int asteroid_size = 25;
@@ -89,11 +104,14 @@ namespace AsteroidGame
                     new Point(rnd.Next(0, Width), rnd.Next(0, Height)),
                     new Point(-rnd.Next(0, asteroid_max_speed), 0),
                     asteroid_size));
+            Log?.Invoke($"Астероидов создано {asteroids_count}");
 
             __GameObjects = game_objects.ToArray();
             //__Bullet = new Bullet(200);
             __Ship = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(10, 10));
             __Ship.ShipDestroyed += OnShipDestroyed;
+
+            Log?.Invoke("Загрузка данных сцены выполнена успешно");
         }
 
         private static void OnShipDestroyed(object Sender, EventArgs E)
@@ -102,6 +120,8 @@ namespace AsteroidGame
             __Buffer.Graphics.Clear(Color.DarkBlue);
             __Buffer.Graphics.DrawString("Game over!!!", new Font(FontFamily.GenericSerif, 60, FontStyle.Bold), Brushes.Red, 200, 100);
             __Buffer.Render();
+
+            Log?.Invoke("Корабль уничтожен");
         }
 
         /// <summary>Метод визуализации сцены</summary>
@@ -126,6 +146,29 @@ namespace AsteroidGame
         /// <summary>Обновление состояния объектов сцены</summary>
         public static void Update()
         {
+            if (__CtrlKeyPressed > 0)
+            {
+                for (var i = 0; i < __CtrlKeyPressed; i++)
+                    __Bullets.Add(new Bullet(__Ship.Position.Y));
+                __CtrlKeyPressed = 0;
+            }
+
+            if (__UpKeyPressed > 0)
+            {
+                for (var i = 0; i < __UpKeyPressed; i++)
+                    __Ship.MoveUp();
+
+                __UpKeyPressed = 0;
+            }
+
+            if (__DownKeyPressed > 0)
+            {
+                for (var i = 0; i < __DownKeyPressed; i++)
+                    __Ship.MoveDown();
+
+                __DownKeyPressed = 0;
+            }
+
             foreach (var visual_object in __GameObjects)
                 visual_object?.Update();
 
