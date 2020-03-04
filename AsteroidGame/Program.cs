@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace AsteroidGame
         [STAThread]
         static void Main()
         {
+            Game.Log = log_str => Debug.WriteLine($">>>{log_str}");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -29,7 +32,5 @@ namespace AsteroidGame
 
             Application.Run(form);
         }
-
-        
     }
 }
