@@ -15,7 +15,7 @@ namespace AsteroidGame
         [STAThread]
         static void Main()
         {
-            Game.Log = log_str => Debug.WriteLine($">>>{log_str}");
+            Game.Log += log_str => Debug.WriteLine($">>>{log_str}");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

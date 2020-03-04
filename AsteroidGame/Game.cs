@@ -17,7 +17,7 @@ namespace AsteroidGame
         private static BufferedGraphics __Buffer;
         private static Timer __Timer;
 
-        public static Action<string> Log { get; set; }
+        public static event Action<string> Log;
 
         public static int Width { get; set; }
 
