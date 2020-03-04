@@ -38,21 +38,27 @@ namespace AsteroidGame
             form.KeyDown += OnFormKeyDown;
         }
 
+        private static int __CtrlKeyPressed;
+        private static int __UpKeyPressed;
+        private static int __DownKeyPressed;
         private static void OnFormKeyDown(object Sender, KeyEventArgs E)
         {
             switch (E.KeyCode)
             {
                 case Keys.ControlKey:
                     //__Bullet = new Bullet(__Ship.Position.Y);
-                    __Bullets.Add(new Bullet(__Ship.Position.Y));
+                    //__Bullets.Add(new Bullet(__Ship.Position.Y));
+                    __CtrlKeyPressed++;
                     break;
 
                 case Keys.Up:
-                    __Ship.MoveUp();
+                    //__Ship.MoveUp();
+                    __UpKeyPressed++;
                     break;
 
                 case Keys.Down:
-                    __Ship.MoveDown();
+                    //__Ship.MoveDown();
+                    __DownKeyPressed++;
                     break;
             }
         }
@@ -126,6 +132,29 @@ namespace AsteroidGame
         /// <summary>Обновление состояния объектов сцены</summary>
         public static void Update()
         {
+            if (__CtrlKeyPressed > 0)
+            {
+                for (var i = 0; i < __CtrlKeyPressed; i++)
+                    __Bullets.Add(new Bullet(__Ship.Position.Y));
+                __CtrlKeyPressed = 0;
+            }
+
+            if (__UpKeyPressed > 0)
+            {
+                for (var i = 0; i < __UpKeyPressed; i++)
+                    __Ship.MoveUp();
+
+                __UpKeyPressed = 0;
+            }
+
+            if (__DownKeyPressed > 0)
+            {
+                for (var i = 0; i < __DownKeyPressed; i++)
+                    __Ship.MoveDown();
+
+                __DownKeyPressed = 0;
+            }
+
             foreach (var visual_object in __GameObjects)
                 visual_object?.Update();
 
