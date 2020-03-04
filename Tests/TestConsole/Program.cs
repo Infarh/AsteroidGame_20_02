@@ -40,7 +40,12 @@ namespace TestConsole
 
             var counts3 = GetItemCounts(numbers);
 
-            var counts4 = numbers.GroupBy(n => n.ToString("0000"))
+            string GetGroupKey(int n)
+            {
+                return n.ToString("0000");
+            }
+
+            var counts4 = numbers.GroupBy(GetGroupKey)
                .Select(group => new { value = group.Key, count = group.Count() })
                .OrderBy(v => v.value)
                .ToArray();
