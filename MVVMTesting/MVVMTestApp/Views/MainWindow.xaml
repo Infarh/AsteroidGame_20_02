@@ -15,6 +15,6 @@
                  Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"
-                   Text="{Binding CurrentTime, ConverterCulture=ru-RU}"/>
+                   Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=dd.MM.yyyy HH:mm:ss.ffff}"/>
     </Grid>
 </Window>
