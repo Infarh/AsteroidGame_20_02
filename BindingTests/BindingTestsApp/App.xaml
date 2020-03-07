@@ -1,0 +1,10 @@
+﻿<Application x:Class="BindingTestsApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:BindingTestsApp"
+             xmlns:c="clr-namespace:BindingTestsApp.Converters"
+             StartupUri="MainWindow2.xaml">
+    <Application.Resources>
+         <c:DebugConverter x:Key="DebugConverter"/>
+    </Application.Resources>
+</Application>
