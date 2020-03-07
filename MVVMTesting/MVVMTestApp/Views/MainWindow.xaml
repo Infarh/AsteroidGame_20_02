@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:MVVMTestApp"
-        Title="MainWindow"
+        xmlns:vm="clr-namespace:MVVMTestApp.ViewModels"
+        Title="{Binding Title}"
         Width="800" Height="450">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="30"
+                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="{Binding CurrentTime, ConverterCulture=ru-RU}"/>
     </Grid>
 </Window>
