@@ -1,16 +1,27 @@
 ﻿
 using System;
 using System.Timers;
+using MVVMTestApp.ViewModels.Base;
 
 namespace MVVMTestApp.ViewModels
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : ViewModel
     {
         private Timer _Timer;
+        private DateTime _CurrentTime;
 
         public string Title { get; set; } = "Заголовок окна проекта MVVM";
 
-        public DateTime CurrentTime { get; set; }
+        public DateTime CurrentTime
+        {
+            get => _CurrentTime;
+            set
+            {
+                if (Equals(_CurrentTime, value)) return;
+                _CurrentTime = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainWindowViewModel()
         {
