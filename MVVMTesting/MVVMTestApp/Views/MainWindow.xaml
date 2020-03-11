@@ -11,10 +11,49 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Margin="30"
-                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Сотрудники" Grid.Column="0">
+            <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="vm:EmployeeViewModel">
+                        <TextBlock>
+                            <TextBlock Text="{Binding SurName}"/>:<TextBlock Text="{Binding Name}"/>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+        <GroupBox Header="Выбранный сотрудник" Grid.Column="1">
+            <Grid DataContext="{Binding SelectedEmployee}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"
-                   Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=dd.MM.yyyy HH:mm:ss.ffff}"/>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя:"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Name}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="фамилия:"/>
+                <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding SurName}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="2" Text="Отчество:"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Patronymic}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="3" Text="Дата рождения:"/>
+                <Calendar Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" SelectedDate="{Binding Birthday}"/> 
+
+            </Grid>
+        </GroupBox>
+        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="3"
+                      Background="Transparent"/>
     </Grid>
 </Window>

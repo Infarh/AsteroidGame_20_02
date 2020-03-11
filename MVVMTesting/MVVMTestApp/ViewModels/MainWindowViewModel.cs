@@ -1,5 +1,6 @@
-﻿
-using System;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Timers;
 using MVVMTestApp.ViewModels.Base;
 
@@ -7,32 +8,47 @@ namespace MVVMTestApp.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        private Timer _Timer;
-        private DateTime _CurrentTime;
+        private string _Title = "Заголовок окна проекта MVVM";
 
-        public string Title { get; set; } = "Заголовок окна проекта MVVM";
-
-        public DateTime CurrentTime
+        public string Title
         {
-            get => _CurrentTime;
-            set
-            {
-                if (Equals(_CurrentTime, value)) return;
-                _CurrentTime = value;
-                OnPropertyChanged();
-            }
+            get => _Title;
+            //set
+            //{
+            //    if (Equals(_Title, value)) return;
+            //    _Title = value;
+            //    OnPropertyChanged(nameof(Title));
+            //}
+            set => Set(ref _Title, value);
+        }
+
+        private ObservableCollection<EmployeeViewModel> _Employees = new ObservableCollection<EmployeeViewModel>();
+
+        public ObservableCollection<EmployeeViewModel> Employees
+        {
+            get => _Employees;
+            set => Set(ref _Employees, value);
+        }
+
+        private EmployeeViewModel _SelectedEmployee;
+
+        public EmployeeViewModel SelectedEmployee
+        {
+            get => _SelectedEmployee;
+            set => Set(ref _SelectedEmployee, value);
         }
 
         public MainWindowViewModel()
         {
-            _Timer = new Timer(100) { AutoReset = true };
-            _Timer.Elapsed += OnTimerTick;
-            _Timer.Start();
+            foreach (var employee in Enumerable.Range(1, 100).Select(i => new EmployeeViewModel
+            {
+                Name = $"Имя {i}",
+                SurName = $"Фамилия {i}",
+                Patronymic = $"Отчество {i}",
+                Birthday = DateTime.Now
+            }))
+                _Employees.Add(employee);
         }
 
-        private void OnTimerTick(object Sender, ElapsedEventArgs E)
-        {
-            CurrentTime = DateTime.Now;
-        }
     }
 }
