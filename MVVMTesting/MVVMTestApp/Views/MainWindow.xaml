@@ -16,15 +16,27 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <GroupBox Header="Сотрудники" Grid.Column="0">
-            <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="vm:EmployeeViewModel">
-                        <TextBlock>
-                            <TextBlock Text="{Binding SurName}"/>:<TextBlock Text="{Binding Name}"/>
-                        </TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1">
+                    <Button Content="Добавить" Command="{Binding CreateNewEmployeeCommand}">
+                        <!--<Button.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding CreateNewEmployeeCommand}"/>
+                        </Button.InputBindings>-->
+                    </Button>
+                    <Button Content="Удалить" Command="{Binding RemoveEmployeeCommand}" CommandParameter="{Binding SelectedEmployee}"/>
+                </UniformGrid>
+                <ListBox ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="vm:EmployeeViewModel">
+                            <TextBlock>
+                                <TextBlock Text="{Binding SurName}"/>
+                                :<TextBlock Text="{Binding Name}"/>
+                                (<TextBlock Text="{Binding Departament.Name, TargetNullValue=[null], FallbackValue=[--]}"/>)
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
         </GroupBox>
         <GroupBox Header="Выбранный сотрудник" Grid.Column="1">
             <Grid DataContext="{Binding SelectedEmployee}">
@@ -33,6 +45,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -57,6 +70,11 @@
                 <TextBlock Grid.Column="0" Grid.Row="4" Text="Возраст:"/>
                 <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Age}"/>
 
+                <TextBlock Grid.Column="0" Grid.Row="5" Text="Отдел:"/>
+                <ComboBox Grid.Column="1" Grid.Row="5"
+                          SelectedItem="{Binding Departament}"
+                          ItemsSource="{Binding DataContext.Departaments, RelativeSource={RelativeSource AncestorType=GroupBox}}"
+                          DisplayMemberPath="Name"/>
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="3"

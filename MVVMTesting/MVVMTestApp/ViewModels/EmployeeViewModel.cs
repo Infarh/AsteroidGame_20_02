@@ -41,6 +41,14 @@ namespace MVVMTestApp.ViewModels
             }
         }
 
+        private DepartamentViewModel _Departament;
+
+        public DepartamentViewModel Departament
+        {
+            get => _Departament;
+            set => Set(ref _Departament, value);
+        }
+
         public int Age => (int)Math.Floor((DateTime.Now - Birthday).TotalDays / 365);
     }
 }
