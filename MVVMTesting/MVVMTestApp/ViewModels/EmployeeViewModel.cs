@@ -34,7 +34,11 @@ namespace MVVMTestApp.ViewModels
         public DateTime Birthday
         {
             get => _Birthday;
-            set => Set(ref _Birthday, value);
+            set
+            {
+                if(Set(ref _Birthday, value)) 
+                    OnPropertyChanged(nameof(Age));
+            }
         }
 
         public int Age => (int)Math.Floor((DateTime.Now - Birthday).TotalDays / 365);

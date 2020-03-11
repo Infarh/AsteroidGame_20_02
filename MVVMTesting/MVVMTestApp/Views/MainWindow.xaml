@@ -37,6 +37,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="Имя:"/>
@@ -49,7 +50,12 @@
                 <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Patronymic}"/>
 
                 <TextBlock Grid.Column="0" Grid.Row="3" Text="Дата рождения:"/>
-                <Calendar Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" SelectedDate="{Binding Birthday}"/> 
+                <Calendar Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" 
+                          DisplayDate="{Binding Birthday}"
+                          SelectedDate="{Binding Birthday}"/>
+
+                <TextBlock Grid.Column="0" Grid.Row="4" Text="Возраст:"/>
+                <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding Age}"/>
 
             </Grid>
         </GroupBox>

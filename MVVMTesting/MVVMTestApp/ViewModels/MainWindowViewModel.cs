@@ -40,12 +40,13 @@ namespace MVVMTestApp.ViewModels
 
         public MainWindowViewModel()
         {
+            var rnd = new Random();
             foreach (var employee in Enumerable.Range(1, 100).Select(i => new EmployeeViewModel
             {
                 Name = $"Имя {i}",
                 SurName = $"Фамилия {i}",
                 Patronymic = $"Отчество {i}",
-                Birthday = DateTime.Now
+                Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(365 * rnd.Next(18, 50)))
             }))
                 _Employees.Add(employee);
         }
