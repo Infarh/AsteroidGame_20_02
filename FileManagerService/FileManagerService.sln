@@ -11,6 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{F0FD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.FrameworkClient", "Clients\FileService.FrameworkClient\FileService.FrameworkClient.csproj", "{29BCC035-640E-4DDB-9025-E7A5AF18DC93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileService.ManualClient", "Clients\FileService.ManualClient\FileService.ManualClient.csproj", "{556B3C7C-4B86-4F20-8220-A47443D07D5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{D93C1941-F239-497B-A28F-01791916C754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIHost", "WebAPI\WebAPIHost\WebAPIHost.csproj", "{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiClient", "WebAPI\WebApiClient\WebApiClient.csproj", "{B191DF83-3450-46AE-89E5-ED310B91DC4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +37,27 @@ Global
 		{29BCC035-640E-4DDB-9025-E7A5AF18DC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29BCC035-640E-4DDB-9025-E7A5AF18DC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29BCC035-640E-4DDB-9025-E7A5AF18DC93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{556B3C7C-4B86-4F20-8220-A47443D07D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{556B3C7C-4B86-4F20-8220-A47443D07D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{556B3C7C-4B86-4F20-8220-A47443D07D5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{556B3C7C-4B86-4F20-8220-A47443D07D5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B191DF83-3450-46AE-89E5-ED310B91DC4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B191DF83-3450-46AE-89E5-ED310B91DC4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B191DF83-3450-46AE-89E5-ED310B91DC4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B191DF83-3450-46AE-89E5-ED310B91DC4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{29BCC035-640E-4DDB-9025-E7A5AF18DC93} = {F0FD25FF-397C-44AC-A152-21D98C73B5AF}
+		{556B3C7C-4B86-4F20-8220-A47443D07D5D} = {F0FD25FF-397C-44AC-A152-21D98C73B5AF}
+		{0F7E5BBF-4EA2-4AE2-9553-B108C4ABCB99} = {D93C1941-F239-497B-A28F-01791916C754}
+		{B191DF83-3450-46AE-89E5-ED310B91DC4D} = {D93C1941-F239-497B-A28F-01791916C754}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07046DB7-C814-4801-9592-872389DF516B}
