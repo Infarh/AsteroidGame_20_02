@@ -14,6 +14,8 @@ namespace FileManagerService.Services
         )]
     class FileService : IFileService
     {
+        public DateTime GetServiceTime() => DateTime.Now;
+
         public DriveInfo[] GetDrives() => DriveInfo.GetDrives();
 
         public FileInfo[] GetFiles(string Path) => new DirectoryInfo(Path).GetFiles();
